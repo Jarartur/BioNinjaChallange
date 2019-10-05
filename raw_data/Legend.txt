@@ -1,0 +1,27 @@
+sex
+1- male
+2-female
+
+
+Pheno - phenotype
+1-uaffected (control)
+2-affected (case)
+-9 - no data (missing)
+
+
+FID - family ID
+IID - individual ID
+
+
+Pheno case-control assocciation analysis:
+nor_obe_all - normal vs obesity all population	 1-normal, 2-obesity, -9- no data
+nor_ovob_all - normal overweight&obesity all population	 1-normal, 2-overweight&obesity, -9- no data
+nor_over_all- normal overweight all population	 1-normal, 2-overweight&obesity, -9- no data
+
+nor_obe_F  - female
+nor_ovob_F 
+nor_over_F
+
+nor_obe_M -male
+nor_ovob_M
+nor_over_M
