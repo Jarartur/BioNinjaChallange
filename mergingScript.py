@@ -1,6 +1,6 @@
 import pandas as pd
 import os
-
+os.chdir('C:\\Users\\ubunt\\OneDrive\\Pulpit\\Plik')
 #load data
 BioNinjaHack_obesityBIM = pd.read_csv('C:\\Users\\ubunt\\OneDrive\\Pulpit\\Biohackaton\Otylosc\\BioNinjaHack_obesity.bim', sep = '\t', header = None)
 BioNinjaHack_obesityFAM = pd.read_csv('C:\\Users\\ubunt\\OneDrive\\Pulpit\\Biohackaton\Otylosc\\BioNinjaHack_obesity.fam', sep = '\t', header = None)
@@ -23,9 +23,26 @@ BioNinjaHack_obesityPED = BioNinjaHack_obesityPED.rename(columns={0: "FamilyID",
 MergedData = pd.DataFrame().copy()
 df = pd.merge(BMI_excel, AGE_excel, left_on=['IID'], right_on=['IID'], how='outer')
 
-MergedData = df[['FID_x','IID','log_BMI','SEX_x','AGE',]]
+
+MergedData = df[['FID_x','IID','log_BMI','SEX_y','AGE',]]
+before = len(MergedData)
+#Drop BMI -9
+MergedData = MergedData.where(MergedData.log_BMI != -9).dropna()
+
+#adding addected and unaffected
+MergedData['index_OfBMI'] = MergedData['log_BMI'].apply(lambda x:2 if x >= 1.397940 else 1)
+
+#Label For Age 
+labels = ["{0} - {1}".format(i, i + 9) for i in range(0, 100, 10)]
+MergedData['Age_group'] = pd.cut(MergedData.AGE, range(0, 105, 10), right=False, labels=labels)
+MergedData['Age_index'] = MergedData.AGE.astype(str)
+MergedData['Age_index'] = MergedData['Age_index'].str[0:1]
+
 
 #save to csv
-MergedData.to_csv('ZmergowanePliki.csv', sep = ';', index=False )
+MergedData.to_csv('zmergowane_pliki.csv', sep = ';', index=False )
 
 
+after= len(MergedData)
+
+print("Osobników bez BMI log (usuniętych):", before - after)
