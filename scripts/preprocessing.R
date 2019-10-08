@@ -12,7 +12,7 @@ ped <- trio::read.pedfile("raw_data/BioNinjaHack_obesity.ped", first.row = NA,
 merge <- cbind(data, ped)
 merge2 <- subset(merge, log_BMI != -9)
 
-write.table(merge2, file = "final.csv", sep = "\t", quote = FALSE, row.names = FALSE, col.names = FALSE)
+write.table(merge2, file = "final.csv", sep = ";", quote = FALSE, row.names = FALSE, col.names = TRUE)
 
 #Program to chsquare test
 # fam <- '/BioNinjaHack_obesity.fam'
